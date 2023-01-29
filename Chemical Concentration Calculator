@@ -1,0 +1,58 @@
+def concentration_calculator():
+    c1 = input("Enter the concentration of the starting solution (e.g. 2M, 5mM): ")
+    v1 = input("Enter the volume of the starting solution (e.g. 10mL, 100uL): ")
+    c2 = input("Enter the desired concentration of the final solution (e.g. 0.5M, 2mM): ")
+    v2 = input("Enter the desired volume of the final solution (e.g. 50mL, 200uL): ")
+    if v2 == "X":
+        c1 = convert_unit(c1)
+        c2 = convert_unit(c2)
+        v1 = convert_unit(v1)
+        v2 = (c1*v1)/c2
+        print(f"The required volume of the final solution is {v2:.2f} {get_unit(v2)}. Add {v2-v1} of deionized H2O to the {v1:.2f} {get_unit(v1)} stock solution to achieve the desired concentration of {c2:.2f} {get_unit(v2)}")
+    elif c2 == "X":
+        c1 = convert_unit(c1)
+        v1 = convert_unit(v1)
+        v2 = convert_unit(v2)
+        c2 = (c1*v1)/v2
+        print(f"The desired concentration of the final solution is {c2:.2f} {get_unit(c2)}. Add {v2-v1} of deionized H2O to the {v1:.2f} {get_unit(v1)} stock solution to achieve the desired concentration of {c2:.2f} {get_unit(c2)}")
+    elif v1 == "X":
+        c1 = convert_unit(c1)
+        c2 = convert_unit(c2)
+        v2 = convert_unit(v2)
+        v1 = (c2*v2)/c1
+        print(f"The required volume of the starting solution is {v1:.2f} {get_unit(v1)}. Add {v2-v1} mL of deionized H2O to the {v1:.2f} {get_unit(v1)} stock solution to achieve the desired concentration of {c2:.2f} {get_unit(v1)}")
+    elif c1 == "X":
+        v1 = convert_unit(v1)
+        c2 = convert_unit(c2)
+        v2 = convert_unit(v2)
+        c1 = (c2*v2)/v1
+        print(f"The starting concentration is {c1:.2f} {get_unit(c1)}. Add {v2-v1} of deionized H2O to the {v1:.2f} {get_unit(v1)} stock solution to achieve the desired concentration of {c1:.2f} {get_unit(c1)}")
+    else:
+        c1 = convert_unit(c1)
+        v1 = convert_unit(v1)
+        c2 = convert_unit(c2)
+        v2 = convert_unit(v2)
+        print(f"C1V1 = {c1*v1} = C2V2 = {c2*v2}")
+
+
+def convert_unit(unit):
+    if "mM" in unit:
+        return float(unit.strip("mM"))/1000
+    elif "uL" in unit:
+        return float(unit.strip("uL"))/1000000
+    elif "mL" in unit:
+        return float(unit.strip("mL"))
+    else:
+        return float(unit.strip("M"))
+
+def get_unit(value):
+    if value > 1:
+        return "L"
+    elif value > 0.001:
+        return "mL"
+    elif value > 0.000001:
+        return "uL"
+    else:
+        return "mM"
+
+concentration_calculator()
