@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import io
+import random
+
+# function to plot a scatter plot
+def scatter_plot(df):
+    # creating a figure and axis objects
+    fig, ax = plt.subplots()
+    
+    # list to store randomly assigned colors
+    colors = []
+    
+    # loop through the number of rows in the dataframe
+    for i in range(df.shape[0]):
+        # randomly choose a color from the viridis colormap and append to the colors list
+        colors.append(random.choice(plt.cm.viridis.colors))
+    
+    # plot the scatter plot, using the values in the C1-C2.rpkm column as x-axis values
+    # and the values in the C3-C4.rpkm column as y-axis values
+    # color each point with the corresponding color from the colors list
+    ax.scatter(df['C1-C2.rpkm'], df['C3-C4.rpkm'], c=colors)
+    
+    # set the x-axis limit to 0 to 190
+    ax.set_xlim(0, 190)
+    # set the y-axis limit to 0 to 190
+    ax.set_ylim(0, 190)
+    
+    # show the plot
+    plt.show()
+
+# read the input CSV data
+data = input("Paste your CSV data here: ")
+df = pd.read_csv(io.StringIO(data))
+# call the scatter_plot function and pass the dataframe as argument
+scatter_plot(df)
+vx
