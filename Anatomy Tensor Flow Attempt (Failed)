@@ -1,0 +1,23 @@
+import tensorflow as tf
+import tensorflow_hub as hub
+
+# Load pre-trained model from TensorFlow Hub
+model = hub.load("https://tfhub.dev/google/tf2-preview/nnlm-en-dim128/1")
+
+# Define a function to generate answers
+def generate_answer(question):
+    question = tf.expand_dims(question, axis=0)
+    answer = model(question)
+    answer = tf.squeeze(answer, axis=0).numpy()
+    return answer
+
+# Loop to interact with user
+while True:
+    # Prompt user for a question
+    question = input("Ask a question: ")
+
+    # Generate answer
+    answer = generate_answer(question)
+
+    # Print answer
+    print("Answer: ", answer)
