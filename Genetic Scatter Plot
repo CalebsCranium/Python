@@ -1,0 +1,11 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def scatter_plot(df):
+    fig, ax = plt.subplots()
+    ax.scatter(df[0], df[1], c=df[2], cmap='viridis')
+    plt.show()
+
+filename = input("Enter the filename (with extension): ")
+df = pd.read_csv(filename, header=None)
+scatter_plot(df)
